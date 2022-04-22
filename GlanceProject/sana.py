@@ -56,3 +56,26 @@ class Sana:
         # Update dictionary entry
         self.youms[key] = youm_in
 
+    def __str__(self):
+        """ string overload for sana class
+        :return: string
+        """
+
+        # generate list of youms-strings (days)
+
+        # Step 1: Get list of youms as string representation
+        lst_youms_str = [str(x) for x in self.youms.values()]
+
+        # Step 2: Join list of strings
+        str_youms = "#" + "-"*100 + "#" + "\n" \
+                     + " {0:^101} ".format("[Days]") + "\n" + "\n"
+
+        str_youms += "\n".join(lst_youms_str)
+
+        str_out = "#" + "-" * 250 + "#" + "\n" \
+                + " {0:^251} ".format("[[Year]]") + "\n" + "\n" \
+                + "[Year]" + "\n" + self.year_id + "\n" + "\n" \
+                + str_youms + "\n" + "\n" \
+                + "#" + "-"*250 + "#"
+
+        return str_out
