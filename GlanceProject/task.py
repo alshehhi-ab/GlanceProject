@@ -3,7 +3,6 @@
 # Class Definition of a Task object.
 # Tasks are items to be completed in a day. They serve as TO-DOs, or Reminders.
 
-import calendar
 from datetime import datetime, date, time
 
 
@@ -86,8 +85,8 @@ class Task:
         str_out = "#" + "-"*50 + "#" + "\n" \
                   + " {0:^51} ".format("[[Task]]") + "\n" + "\n" \
                   + "[Name]" + "\n" + self.name + "\n" + "\n" \
-                  + "[Date]" + "\n" + self.date_finish + "\n" + "\n" \
-                  + "[Time]" + "\n" + self.time_finish + "\n" + "\n" \
+                  + "[Date]" + "\n" + str(self.date_finish) + "\n" + "\n" \
+                  + "[Time]" + "\n" + str(self.time_finish) + "\n" + "\n" \
                   + "[Priority]" + "\n" + self.priority + "\n" + "\n" \
                   + "[Status]" + "\n" + self.get_status() + "\n" + "\n" \
                   + "[Description]" + "\n" + self.description + "\n" \
