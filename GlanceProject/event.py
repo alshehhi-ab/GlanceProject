@@ -22,13 +22,20 @@ class Event:
         self.time_finish = ""
         Event.id_counter += 1
 
-
     def set_name(self, name_in):
         """ Sets name of event
         :param name_in: name input for event
         :return: None
         """
         self.name = name_in
+
+    def set_location(self, loc_in):
+        """ Sets location of event
+        :param loc_in: location input for event location
+        :return: None
+        """
+
+        self.location = loc_in
 
     def set_description(self, desc_in):
         """ Sets description of event
@@ -58,7 +65,7 @@ class Event:
         """
         self.date_finish = date_finish_in
 
-    def set_tim_finish(self, time_finish_in):
+    def set_time_finish(self, time_finish_in):
         """ Sets finishing time of event
         :param time_finish_in: time object indicating finishing time
         :return: None
