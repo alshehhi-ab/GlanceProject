@@ -224,7 +224,7 @@ class IOControl:
 
             # Remove Event/Task
 
-            if opt_in == "D":
+            if opt_in == "R":
 
                 selector = str(input("Type E for event, T for task, Q to return to previous menu: "))
 
@@ -233,7 +233,7 @@ class IOControl:
 
                 # Delete an Event
                 if selector == "E":
-                    date_event = date.fromisoformat(str("Please enter date of event yyyy-mm-dd: "))
+                    date_event = date.fromisoformat(str(input("Please enter date of event yyyy-mm-dd: ")))
                     sana_key = data_dict[date_event.year]
                     day_events = self.get_youm(date_event, sana_key).events
 
@@ -246,7 +246,7 @@ class IOControl:
 
                 # Delete a Task
                 if selector == "T":
-                    date_task = date.fromisoformat(str("Please enter date of task yyyy-mm-dd: "))
+                    date_task = date.fromisoformat(str(input("Please enter date of task yyyy-mm-dd: ")))
                     sana_key = data_dict[date_task.year]
                     day_tasks = self.get_youm(date_task, sana_key).tasks
 
