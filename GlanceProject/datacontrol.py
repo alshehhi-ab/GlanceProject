@@ -17,8 +17,6 @@ import sana
 # 3 Provide Control Functions
     # Import Calendar Files
 
-
-
 class DataControl:
 
     def __init__(self):
@@ -31,7 +29,7 @@ class DataControl:
 
         # Create a directory for data files if it does not exist
         else:
-            os.mkdir(self.main_dir, "Data")
+            os.mkdir(os.path.join(self.main_dir, "Data"))
             self.data_dir = os.path.join(self.main_dir, "Data")
 
         # Check for sana data files
@@ -40,10 +38,11 @@ class DataControl:
 
         # Create a directory for sana datafiles if they do not exist
         else:
-            os.mkdir(self.data_dir, "SanaData")
+            os.mkdir(os.path.join(self.data_dir, "SanaData"))
             self.sana_dir = os.path.join(self.data_dir, "SanaData")
 
-        self.lst_sanas = os.listdir(self.sana_dir)      # Creates a list of all available SanaDataFiles
+        # Creates a list of all available SanaDataFiles
+        self.lst_sanas = os.listdir(self.sana_dir)
 
     def read_sdf_path(self, filepath):
         """ Reads a given sanadata file, and returns a Sana Object
@@ -62,10 +61,11 @@ class DataControl:
         """
 
         # generate proper path to year data file.
-        fpath = os.path.join(self.sana_dir, str(year_in) + ".dat")
+        fname = str(year_in) + ".dat"
+        fpath = os.path.join(self.sana_dir, fname)
 
         # Return value from read_sdf_path
-        self.read_sdf_path(self, fpath)
+        return self.read_sdf_path(fpath)
 
     def write_sdf(self, sana_in):
         """ dumps calendar year (sana) into sana data file
@@ -74,7 +74,7 @@ class DataControl:
         """
 
         # Generate filename:
-        fname = sana_in.year_id() + ".dat"
+        fname = sana_in.year_id + ".dat"
 
         # Find equivalent data path
         fpath = os.path.join(self.sana_dir, fname)
@@ -82,3 +82,4 @@ class DataControl:
         # Pickle sana object into file
         with open(fpath, "wb") as f:
             pickle.dump(sana_in, f)
+
