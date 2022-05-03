@@ -76,5 +76,15 @@ class Event:
         """ String overload for Event object
         :return: string representation of Event object
         """
-        pass
+
+        str_out = "#" + "-"*50 + "#" + "\n" \
+                  + " {0:^51} ".format("[[Event]]") + "\n" + "\n" \
+                  + "[Name]" + "\n" + self.name + "\n" + "\n" \
+                  + "[Location]" + "\n" + self.location + "\n" + "\n" \
+                  + "[Start]" + "\n" + str(self.time_start) + " " + str(self.date_start) + "\n" + "\n" \
+                  + "[End]" + "\n" + str(self.time_finish) + " " + str(self.date_finish) + "\n" + "\n" \
+                  + "[Description]" + "\n" + self.description + "\n" \
+                  + "#" + "-"*50 + "#"
+
+        return str_out
     
