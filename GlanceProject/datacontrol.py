@@ -42,7 +42,10 @@ class DataControl:
             self.sana_dir = os.path.join(self.data_dir, "SanaData")
 
         # Creates a list of all available SanaDataFiles
-        self.lst_sanas = os.listdir(self.sana_dir)
+        self.lst_sanas = [x for x in os.listdir(self.sana_dir) if x not in ".DS_Store"]
+
+        # Creates list of all available Years based on SanaDataFiles
+        self.lst_years = [int(y[:-4]) for y in self.lst_sanas]
 
     def read_sdf_path(self, filepath):
         """ Reads a given sanadata file, and returns a Sana Object
@@ -82,4 +85,5 @@ class DataControl:
         # Pickle sana object into file
         with open(fpath, "wb") as f:
             pickle.dump(sana_in, f)
+
 
