@@ -4,35 +4,49 @@ from youm import Youm
 from sana import Sana
 from datacontrol import DataControl
 from iocontrol import IOControl
+from admincontrol import AdminControl
 
 from datetime import datetime, date, time
+
 
 debug = False
 
 
+# -- STARTUP --
+
+# Set up Data Controller and IO Controller
 controller = DataControl()
 io = IOControl()
+admin = AdminControl(io, controller)
 
-# Read Default calendar files
-year_22 = controller.read_sdf(2022)
-year_21 = controller.read_sdf(2021)
-year_23 = controller.read_sdf(2023)
+# Read Calendar files (Generate Dictionary of available files)
+years_avail = {k: controller.read_sdf(k) for k in controller.lst_years}
+io.years = controller.lst_years
+
+# Start Glance System
+print("-- STARTING GLANCE --")
+selector = str(input("Welcome to Glance, press any key to continue: "))
+
+# ADMIN Control
+if selector == "ADMIN":
+    admin.admin_menu()
 
 
-years_avail = {2021: year_21,
-               2022: year_22,
-               2023: year_23}
-
+# -- MAIN INTERFACE --
 
 
 # Interface
 io.default_menu(years_avail)
 
-# Write Default calendar files
-controller.write_sdf(year_21)
-controller.write_sdf(year_22)
-controller.write_sdf(year_23)
+# -- CLOSING UP
 
+# Write Calendar files
+for sana_dat in years_avail.values():
+    controller.write_sdf(sana_dat)
+
+quit()
+
+# -- DEBUG --
 
 # Test output for Task
 
@@ -64,8 +78,6 @@ if debug:
     task_c.set_time(time(8, 00))
     task_c.set_priority("Medium")
     print(task_c)
-
-
 
 # Test output for Event
 
