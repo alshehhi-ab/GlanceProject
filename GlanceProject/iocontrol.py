@@ -13,7 +13,7 @@ from datetime import datetime, date, time
 class IOControl:
 
     def __init__(self):
-        self.years = [2021, 2022, 2023]        # Default years stored on device.
+        self.years = []       # Default years stored on device.
 
     def next_date(self, date_in):
         """ Returns next date from current date
@@ -63,6 +63,9 @@ class IOControl:
         curr_date = date.today()
         curr_year = curr_date.year
 
+        add_menu_str = "\n[Add Menu] \n(E) Add Event \n(T) Add Task \n(Q) Return to previous menu."
+        rem_menu_str = "\n[Remove Menu] \n(E) Remove Event \n(T) Remove Task \n(Q) Return to previous menu."
+
         while True:
 
             print("-" * 50)
@@ -78,7 +81,6 @@ class IOControl:
             opt_in = str(input("Please select an option: "))
 
             # Show today
-
             if opt_in == "X":
                 sana_key = data_dict[curr_year]
                 youm_to_show = self.get_youm(curr_date, sana_key)
@@ -93,14 +95,11 @@ class IOControl:
                     print(youm_to_show)
                     print()
 
-                    in_opt = str(input("Press Q to exit day view at any time. ")).upper
-
+                    in_opt = str(input("Press Q to exit day view at any time. \n"))
                     if in_opt == "Q":
                         break
-                    break
 
             # Show Yesterday
-
             if opt_in == "<":
                 sana_key = data_dict[curr_year]
                 yesterdate = self.prev_date(curr_date)
@@ -116,12 +115,11 @@ class IOControl:
                     print(youm_to_show)
                     print()
 
-                    in_opt = str(input("Press Q to exit day view at any time.")).upper()
+                    in_opt = str(input("Press Q to exit day view at any time. \n")).upper()
                     if in_opt == "Q":
                         break
 
             # Show Next Day
-
             if opt_in == ">":
                 sana_key = data_dict[curr_year]
                 nextdate = self.next_date(curr_date)
@@ -137,16 +135,16 @@ class IOControl:
                     print(youm_to_show)
                     print()
 
-                    in_opt = str(input("Press Q to exit day view at any time.")).upper()
+                    in_opt = str(input("Press Q to exit day view at any time. \n")).upper()
                     if in_opt == "Q":
                         break
 
             # Show Other Day
-
             if opt_in == "?":
                 showdate = date.fromisoformat(str(input("Please enter date in following format yyyy-mm-dd: ")))
                 sana_key = data_dict[showdate.year]
                 youm_to_show = self.get_youm(showdate, sana_key)
+
                 while True:
 
                     print(" {0:^101} ".format("[[Day]]"))
@@ -157,14 +155,16 @@ class IOControl:
                     print(youm_to_show)
                     print()
 
-                    in_opt = str(input("Press Q to exit day view at any time.")).upper()
+                    in_opt = str(input("Press Q to exit day view at any time. \n")).upper()
+
                     if in_opt == "Q":
                         break
 
             # Add Event/ Task
             if opt_in == "A":
 
-                selector = str(input("Type E for event, T for task, Q to return to previous menu"))
+                print(add_menu_str)
+                selector = str(input("Please select an option: "))
 
                 if selector == "Q":
                     break
@@ -175,13 +175,13 @@ class IOControl:
 
                     event_date_start = date.fromisoformat(str(input("Please enter start date of event yyyy-mm-dd: ")))
                     event_date_end = date.fromisoformat(str(input("Please enter end date of event yyyy-mm-dd: ")))
-                    event_time_start = time(int(input("Please enter start hour: HH")),
-                                            int(input("Please enter start minute: MM")))
-                    event_time_end = time(int(input("Please enter end hour: HH")),
-                                          int(input("Please enter end minute: MM")))
+                    event_time_start = time(int(input("Please enter start hour (HH): ")),
+                                            int(input("Please enter start minute (MM): ")))
+                    event_time_end = time(int(input("Please enter end hour (HH): ")),
+                                          int(input("Please enter end minute (MM): ")))
                     event_name = str(input("Please enter event name: "))
-                    event_loc = str(input("Please enter event location"))
-                    event_desc = str(input("Please enter event notes"))
+                    event_loc = str(input("Please enter event location: "))
+                    event_desc = str(input("Please enter event notes: "))
 
                     event_to_add.set_date_start(event_date_start)
                     event_to_add.set_date_finish(event_date_end)
@@ -203,8 +203,8 @@ class IOControl:
                     task_to_add = Task()
 
                     task_date_end = date.fromisoformat(str(input("Please enter end date of task yyyy-mm-dd: ")))
-                    task_time_end = time(int(input("Please enter end hour: HH")),
-                                         int(input("Please enter end minute: MM")))
+                    task_time_end = time(int(input("Please enter end hour (HH): ")),
+                                         int(input("Please enter end minute (MM): ")))
                     task_name = str(input("Please enter task name: "))
                     task_priority = str(input("Please enter task priority \"High\" \"Medium\" \"Low\": "))
                     task_desc = str(input("Please enter task notes: "))
@@ -223,10 +223,10 @@ class IOControl:
                     print("Task Added")
 
             # Remove Event/Task
-
             if opt_in == "R":
 
-                selector = str(input("Type E for event, T for task, Q to return to previous menu: "))
+                print(rem_menu_str)
+                selector = str(input("Please select an option: "))
 
                 if selector == "Q":
                     break
@@ -263,4 +263,4 @@ class IOControl:
 
             # Any other invalid input
             else:
-                pass
+                print()
